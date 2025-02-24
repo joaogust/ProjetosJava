@@ -1,22 +1,38 @@
 package Biblioteca;
 
 public class Aluno extends Usuario{
+
+    private static int qtdAlunos;
+
+    private Turmas turma;
+
     enum Turmas {
         PRIMEIRO_ANO,
         SEGUNDO_ANO,
         TERCEIRO_ANO;
     }
 
-    private Turmas turma;
-
-
     public Aluno(String nome, String idade, String email, String senha, Turmas turma) {
         super(nome, idade, email, senha);
         this.turma = turma;
+
+        System.out.println("Cadastro realizado com sucesso!");
+        System.out.println("\nPressione Enter para continuar...");
+
+        var scanner = new java.util.Scanner(System.in);
+        scanner.next();
+    }
+
+    public Turmas getTurma() {
+        return turma;
+    }
+
+    public static int getQtdAlunos() {
+        return qtdAlunos;
     }
 
     @Override
-    public Aluno criarCadastro() {
+    public Aluno criarCadastro(Sistema sistema) {
         var scanner = new java.util.Scanner(System.in);
         System.out.println("Digite os dados à seguir: ");
 
@@ -51,8 +67,7 @@ public class Aluno extends Usuario{
                     continue;
                 }
 
-                System.out.println("Cadastro criado com sucesso!");
-                scanner.next();
+                sistema.incrementarAlunos();
 
                 return new Aluno(nome, idade, email, senha, turma);
             } catch (Exception ignored) {

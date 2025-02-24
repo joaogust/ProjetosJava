@@ -2,7 +2,7 @@ package Biblioteca;
 
 public interface Cadastro {
 
-    public Cadastro criarCadastro();
+    public Cadastro criarCadastro(Sistema sistema);
 
     public void excluirCadastro();
 }

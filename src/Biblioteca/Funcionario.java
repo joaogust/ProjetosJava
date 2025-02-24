@@ -2,16 +2,24 @@ package Biblioteca;
 
 public class Funcionario extends Usuario {
 
+    private Setor setor;
+
     enum Setor {
         SETOR_A,
         SETOR_B,
         SETOR_C;
     }
 
-    private Setor setor;
 
     private Funcionario(String nome, String idade, String email, String senha, Setor setor) {
         super(nome, idade, email, senha);
+        this.setor = setor;
+
+        System.out.println("Cadastro realizado com sucesso!");
+        System.out.println("\nPressione Enter para continuar...");
+
+        var scanner = new java.util.Scanner(System.in);
+        scanner.next();
     }
 
     public Setor getSetor() {
@@ -19,7 +27,7 @@ public class Funcionario extends Usuario {
     }
 
     @Override
-    public Funcionario criarCadastro() {
+    public Funcionario criarCadastro(Sistema sistema) {
         var scanner = new java.util.Scanner(System.in);
         System.out.println("Digite os dados à seguir: ");
 
@@ -54,8 +62,7 @@ public class Funcionario extends Usuario {
                     continue;
                 }
 
-                System.out.println("Cadastro criado com sucesso!");
-                scanner.next();
+                sistema.incrementarFuncionarios();
 
                 return new Funcionario(nome, idade, email, senha, setor);
             } catch (Exception ignored) {
@@ -63,8 +70,4 @@ public class Funcionario extends Usuario {
         }
     }
 
-    @Override
-    public void excluirCadastro() {
-        super.excluirCadastro();
-    }
 }

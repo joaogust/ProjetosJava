@@ -12,6 +12,12 @@ public class Usuario implements Cadastro {
         this.idade = idade;
         this.email = email;
         this.senha = senha;
+
+        System.out.println("Cadastro realizado com sucesso!");
+        System.out.println("\nPressione Enter para continuar...");
+
+        var scanner = new java.util.Scanner(System.in);
+        scanner.next();
     }
 
     public String getNome() {
@@ -30,10 +36,8 @@ public class Usuario implements Cadastro {
         return senha;
     }
 
-
-
     @Override
-    public Usuario criarCadastro() {
+    public Usuario criarCadastro(Sistema sistema) {
         var scanner = new java.util.Scanner(System.in);
         System.out.println("Digite os dados à seguir: ");
 
