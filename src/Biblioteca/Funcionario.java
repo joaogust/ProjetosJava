@@ -27,7 +27,8 @@ public class Funcionario extends Usuario {
     }
 
     @Override
-    public Funcionario criarCadastro(Sistema sistema) {
+    public static Funcionario criarCadastro(Sistema sistema) {
+        System.out.println("\n--------------------------\n");
         var scanner = new java.util.Scanner(System.in);
         System.out.println("Digite os dados à seguir: ");
 
@@ -70,4 +71,14 @@ public class Funcionario extends Usuario {
         }
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "setor=" + setor +
+                ", nome='" + nome + '\'' +
+                ", idade='" + idade + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
+    }
 }

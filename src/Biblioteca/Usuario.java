@@ -1,6 +1,6 @@
 package Biblioteca;
 
-public class Usuario implements Cadastro {
+public class Usuario {
 
     protected String nome;
     protected String idade;
@@ -36,8 +36,8 @@ public class Usuario implements Cadastro {
         return senha;
     }
 
-    @Override
-    public Usuario criarCadastro(Sistema sistema) {
+    public static Usuario criarCadastro(Sistema sistema) {
+        System.out.println("\n--------------------------\n");
         var scanner = new java.util.Scanner(System.in);
         System.out.println("Digite os dados à seguir: ");
 
@@ -56,7 +56,6 @@ public class Usuario implements Cadastro {
         return new Usuario(nome, idade, email, senha);
     }
 
-    @Override
     public void excluirCadastro() {
         // TODO excluirCadastro
     }

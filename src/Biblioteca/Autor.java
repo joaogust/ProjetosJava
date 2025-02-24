@@ -1,6 +1,6 @@
 package Biblioteca;
 
-public class Autor implements Cadastro {
+public class Autor {
 
     private int qtd_livros = 1;
     private String nome;
@@ -21,8 +21,8 @@ public class Autor implements Cadastro {
         qtd_livros++;
     }
 
-    @Override
-    public Autor criarCadastro(Sistema sistema) {
+    public static Autor criarCadastro(Sistema sistema) {
+        System.out.println("\n--------------------------\n");
 
         var scanner = new java.util.Scanner(System.in);
         System.out.println("Digite os dados à seguir: ");
@@ -38,8 +38,16 @@ public class Autor implements Cadastro {
         return new Autor(nome, nacionalidade);
     }
 
-    @Override
     public void excluirCadastro() {
         // TODO
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "qtd_livros=" + qtd_livros +
+                ", nome='" + nome + '\'' +
+                ", nacionalidade='" + nacionalidade + '\'' +
+                '}';
     }
 }

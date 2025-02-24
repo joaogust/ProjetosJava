@@ -32,7 +32,8 @@ public class Aluno extends Usuario{
     }
 
     @Override
-    public Aluno criarCadastro(Sistema sistema) {
+    public static Aluno criarCadastro(Sistema sistema) {
+        System.out.println("\n--------------------------\n");
         var scanner = new java.util.Scanner(System.in);
         System.out.println("Digite os dados à seguir: ");
 
@@ -74,5 +75,16 @@ public class Aluno extends Usuario{
             }
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "turma=" + turma +
+                ", nome='" + nome + '\'' +
+                ", idade='" + idade + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
     }
 }
