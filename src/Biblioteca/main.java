@@ -9,7 +9,10 @@ public class main {
         var scanner = new Scanner(System.in);
         Sistema sistema = new Sistema();
 
-        login(sistema);
+        boolean loop = true;
+        while (loop) {
+            loop = login(sistema);
+        }
 
     }
 
@@ -19,7 +22,7 @@ public class main {
         }
     }
 
-    public static void login(Sistema sistema) {
+    public static int login(Sistema sistema) {
         Scanner scanner = new Scanner(System.in);
         Sistema.menuLogin();
 
@@ -34,10 +37,14 @@ public class main {
                 int a2 = lerNum();
                 switch (a2) {
                     case 1 -> {
-                        sistema.funcionarios[sistema.getQtdFuncionarios()] = Funcionario.criarCadastro(sistema);
+                        sistema.funcionarios[sistema.getQtdFuncionarios()] = new Funcionario(sistema);
                         limparTela();
+                        return entrar(sistema);
                     }
                 }
+            }
+            case 2 -> {
+                return entrar(sistema);
             }
         }
     }
@@ -54,6 +61,26 @@ public class main {
         }
     }
 
+    public static int entrar(Sistema sistema) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite os dados abaixo:");
+        System.out.print("E-mail: ");
+        String email = scanner.nextLine();
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
+        for(int i = 0; i < sistema.getQtdUsuarios(); i++) {
+            if(sistema.funcionarios[i].senha.equals(senha) && sistema.funcionarios[i].email.equals(email)) {
+                System.out.printf("Cadastro '%s' encontrado!\n", sistema.funcionarios[i].getNome());
+                System.out.println("Pressione Enter para continuar...");
+                
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static void interfaceAluno(){
 
     }
@@ -61,4 +88,5 @@ public class main {
     public static void interfaceFuncionario() {
 
     }
+
 }

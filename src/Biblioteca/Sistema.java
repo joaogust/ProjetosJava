@@ -8,11 +8,20 @@ public class Sistema {
     private int qtdAutores;
     private int qtdAlunos;
     private int qtdFuncionarios;
+    private int qtdUsuarios;
 
     Livro[] livros = new Livro[10000];
     Autor[] autores = new Autor[10000];
     Aluno[] alunos = new Aluno[10000];
     Funcionario[] funcionarios = new Funcionario[10000];
+
+    public int getQtdUsuarios() {
+        return qtdUsuarios;
+    }
+
+    public void incrementarUsuarios() {
+        qtdUsuarios++;
+    }
 
     public int getQtdLivros() {
         return qtdLivros;
