@@ -9,7 +9,7 @@ public class main {
         var scanner = new Scanner(System.in);
         Sistema sistema = new Sistema();
 
-        boolean loop = true;
+        int loop = true;
         while (loop) {
             loop = login(sistema);
         }
