@@ -2,6 +2,7 @@ package SistemaDePedidosRestaurante;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Scanner;
 
 public class Item {
 
@@ -30,10 +31,40 @@ public class Item {
             return Nome;
         }
     }
-    Categoria categoria;
+
+    public Categoria categoria;
+
+    public Item(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    private Item() {
+    }
 
     public Categoria getCategoria() {
         return categoria;
+    }
+
+    public static Item criarItem() {
+        Scanner scanner = new Scanner(System.in);
+
+        Locale locale = new Locale("pt", "BR");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(locale);
+
+        while (true) {
+            try {
+                System.out.print("Digite o número do item: ");
+                int num = Integer.parseInt(scanner.nextLine());
+
+                if (num >= 1 && num <= 8) {
+                    Categoria categoria = Categoria.values()[num-1];
+                    String formatted = nf.format(categoria.Valor);
+                    System.out.printf("Item '%s' no valor de '%s' adicionado com sucesso!\n\n", categoria.getNome(), formatted);
+                    return new Item(categoria);
+                }
+            } catch (Exception e) {
+            }
+        }
     }
 
     public static void cardapio() {
@@ -75,7 +106,12 @@ public class Item {
         System.out.printf("8 - %-13s\t%s\n", Categoria.ACAI.Nome, formatted);
 
         System.out.println("\n-------------------------------\n");
+    }
 
-
+    public String getItem() {
+        Locale locale = new Locale("pt", "BR");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(locale);
+        String formatted = nf.format(categoria.getValor());
+        return String.format("%-13s %s", categoria.getNome(), formatted);
     }
 }

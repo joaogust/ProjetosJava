@@ -7,30 +7,21 @@ public class main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Pedido[] p1 = new Pedido[50];
+        Pedido[] p = new Pedido[50];
 
         while(true) {
             menu();
-            int g = Integer.parseInt(scanner.nextLine());
+            int g;
+            try {
+                g = Integer.parseInt(scanner.nextLine());
+            } catch(RuntimeException e) {
+                System.out.println("Ops, tente novamente...\n");
+                continue;
+            }
 
             switch (g) {
-                case 1 -> p1[Pedido.getQtdPedidos()] = Pedido.criarPedido();
-                case 2 -> {
-                    if(Pedido.getQtdPedidos() == 0) {
-                        System.out.println("Não há pedidos no sistema.");
-                        System.out.println("Pressione Enter para continuar...");
-                        scanner.next();
-                        continue;
-                    }
-                    System.out.println("Pedidos");
-                    for(int i = 0; i < Pedido.getQtdPedidos(); i++) {
-                        System.out.format("Pedido %d: ", i+1);
-                        System.out.println(p1[Pedido.getQtdPedidos()-1]);
-                    }
-
-                    System.out.println("Pressione Enter para continuar...");
-                    scanner.next();
-                }
+                case 1 -> p[Pedido.getQtdPedidos()] = new Pedido();
+                case 2 -> Pedido.listarPedidos(p);
                 case 3 -> {
                     return;
                 }

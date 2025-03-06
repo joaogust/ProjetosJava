@@ -1,82 +1,86 @@
 package SistemaDePedidosRestaurante;
 
+import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class Pedido {
 
     private static int qtdPedidos;
 
     private final Cliente cliente;
-    private final Item[] itens;
+    private final Item[] itens = new Item[10];
     private int valorTotal;
     private int qtdItem;
 
-    public Pedido(Cliente cliente, Item[] item, int valorTotal, int qtdItem) {
-        this.cliente = cliente;
-        this.itens = item;
-        this.valorTotal = valorTotal;
-        this.qtdItem = qtdItem;
+    public Pedido() {
+        Scanner scanner = new Scanner(System.in);
+
+        // Instanciando Cliente
+        this.cliente = Cliente.criarCliente();
+
+        // Instanciando itens
+        a:
+        for(int i = 0; i < 10; i++) {
+            Item.cardapio();
+
+            itens[i] = Item.criarItem();
+            this.valorTotal += itens[i].categoria.getValor();
+            this.qtdItem++;
+
+            int n;
+            while (qtdItem < 9) {
+                try {
+                    System.out.print("Deseja adicionar mais algum item (sim[1] - não[2]): ");
+                    n = Integer.parseInt(scanner.nextLine());
+                    switch (n) {
+                        case 1 -> {
+                            continue a;
+                        }
+                        case 2 -> {
+                            break a;
+                        }
+                    }
+                } catch (NumberFormatException ignore) {
+                }
+            }
+        }
+        System.out.println("\nPedido finalizado com sucesso!\n");
+        System.out.println("Pressione Enter para continuar...");
+        scanner.nextLine();
         qtdPedidos++;
     }
 
-    public static Pedido criarPedido() {
-        Cliente cliente = Cliente.criarCliente();
-        var scanner = new java.util.Scanner(System.in);
+    public static void listarPedidos(Pedido[] p) {
 
-        Item[] item = new Item[10];
-        int valorTotal = 0;
+        Scanner scanner = new Scanner(System.in);
 
-        int i = 0, n = 0;
+        Locale locale = new Locale("pt", "BR");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(locale);
 
-        a:
-        do {
-            System.out.println("Qual item você deseja adicionar no pedido: ");
-            Item.cardapio();
+        if(qtdPedidos == 0) {
+            System.out.println("Não há pedidos no sistema.");
+            System.out.println("Pressione Enter para continuar...");
+            scanner.next();
+            return;
+        }
 
-
-            while(true) {
-                try {
-                    System.out.print("Digite o número do item: ");
-                    int num = Integer.parseInt(scanner.nextLine());
-
-                    if(num >= 1 && num <= 8) {
-                        item[i].categoria = switch (num) {
-                            case 1 -> Item.Categoria.SUCO;
-                            case 2 -> Item.Categoria.REFRIGERANTE;
-                            case 3 -> Item.Categoria.AGUA;
-                            case 4 -> Item.Categoria.ARROZ;
-                            case 5 -> Item.Categoria.CARNE;
-                            case 6 -> Item.Categoria.FEIJAO;
-                            case 7 -> Item.Categoria.SORVETE;
-                            case 8 -> Item.Categoria.ACAI;
-                            default -> {
-                                yield null;
-                            }
-                        };
-                        System.out.printf("Item '%s' adicionado com sucesso!", item[i].categoria.getNome());
-                        valorTotal += item[i].categoria.getValor();
-                    } else {
-                        continue;
-                    }
-
-                } catch(Exception e) {
-                }
-
-                while(true) {
-                    System.out.print("Deseja adicionar mais algum item (sim[1] - não[2]): ");
-                    n = Integer.parseInt(scanner.nextLine());
-
-                    if(n == 1) {
-                        continue a;
-                    } else if(n == 2){
-                        break a;
-                    }
-                }
+        System.out.print("---------- Pedidos ----------");
+        for(int i = 0; i < qtdPedidos; i++) {
+            if(i>0) System.out.println("\n-- -- -- -- -- -- -- -- -- --");
+            System.out.format("\nPedido %d: \n", i+1);
+            System.out.println("Nome: " + p[i].cliente.getNomeCliente());
+            System.out.println("Mesa: " + p[i].cliente.getMesa());
+            for(int j = 0; j < p[i].qtdItem; j++) {
+                System.out.format("\t%d - %s\n", j+1, p[i].itens[j].getItem());
             }
-        } while(i<10 && n != 2);
-        System.out.println("Pedido finalizado com sucesso!");
 
-        return new Pedido(cliente, item, valorTotal, i);
+            String formatted = nf.format(p[i].valorTotal);
+            System.out.println("\tTotal: "+ formatted);
+        }
+        System.out.println("\nPressione Enter para continuar...");
+        scanner.nextLine();
     }
 
     @Override

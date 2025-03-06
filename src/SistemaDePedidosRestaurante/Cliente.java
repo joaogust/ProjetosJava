@@ -25,15 +25,17 @@ public class Cliente {
                 while(mesa < 1 || mesa > 10){
                     System.out.print("Mesa (1 à 10): ");
                     mesa = Integer.parseInt(scanner.nextLine());
+                    if(mesa < 1 || mesa > 10) System.out.println("Mesa inválida...");
                 }
                 break;
             } catch (Exception e) {
+                System.out.println("Mesa inválida...");
             }
         }
         return new Cliente(nome, mesa);
     }
 
-    public String getNome_cliente() {
+    public String getNomeCliente() {
         return nome_cliente;
     }
 
